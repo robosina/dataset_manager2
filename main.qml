@@ -5,6 +5,7 @@ import QtQuick.Controls 1.6
 import QtQuick.Extras 1.4
 import QtQuick.Controls.Styles.Desktop 1.0
 import QtQuick.Dialogs.qml 1.0
+import QtQuick.Layouts 1.0
 Window {
     visible: true
     width: 1700
@@ -110,7 +111,7 @@ Window {
             x:1050
             y:20
             onImage_loaded: {
-                numofimgs.text="total image has been loaded:"+Number(center.return_number_of_imgs())
+                numofimgs.text="تمام تصاویر در این رده:"+Number(center.return_number_of_imgs())
             }
             onWhole_image_uploaded:{
                 var i
@@ -118,7 +119,7 @@ Window {
                 {
                     mymodel.append({txt:Number(i),oid:i,src_n:i})
                 }
-                numofimgs1.text="total image passed="+Number(center.get_total_image_passed())
+                numofimgs1.text="تصاویر پردازش شده:"+Number(center.get_total_image_passed())
             }
             onCounting_end: {
                 var i
@@ -135,88 +136,14 @@ Window {
         }
     }
 
-    TextEdit {
-        id: path
-        x: 1073
-        y: 749
-        width: 442
-        height: 20
-        text: "/home/nict/plate_finder_section/ocr/total_datasets/train/0"
-        horizontalAlignment: Text.AlignHCenter
-        font.family: "Times New Roman"
-        z: 100
-        font.pixelSize: 15
-    }
-
     Label {
         id: label
-        x: 1038
+        x: 1056
         y: 716
-        width: 61
+        width: 594
         height: 27
-        text: qsTr("path")
         z: 100
         font.pointSize: 15
-        font.family: "Times New Roman"
-    }
-
-    Column {
-        x: 1038
-        y: 556
-        width: 217
-        height: 211
-        z: 1
-        spacing: 12
-    }
-
-    Label {
-        id: label1
-        x: 1038
-        y: 788
-        width: 115
-        height: 27
-        text: qsTr("label number")
-        font.pointSize: 15
-        z: 100
-        font.family: "Times New Roman"
-    }
-
-    TextEdit {
-        id: labelnum
-        x: 1105
-        y: 821
-        width: 120
-        height: 16
-        text: "1"
-        horizontalAlignment: Text.AlignHCenter
-        font.weight: Font.Light
-        font.capitalization: Font.AllUppercase
-        font.family: "Times New Roman"
-        z: 100
-        font.pixelSize: 15
-    }
-
-    TextEdit {
-        id: numofimgs
-        x: 1038
-        y: 939
-        width: 342
-        height: 20
-        text: qsTr("total image has been loaded:0")
-        z: 100
-        font.family: "Times New Roman"
-        font.pixelSize: 18
-    }
-
-    TextEdit {
-        id: numofimgs1
-        x: 1038
-        y: 874
-        width: 342
-        height: 26
-        text: qsTr("total image passed:0")
-        z: 100
-        font.pixelSize: 18
         font.family: "Times New Roman"
     }
 
@@ -226,7 +153,15 @@ Window {
         y: 652
         width: 260
         height: 46
-        text: qsTr("update path and label")
+        Text {
+            anchors.fill: parent
+            text: "بارگزاری عدد"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: "A Sogand"
+            font.pixelSize: 19
+        }
         z: 100
         onClicked: {
             alphabet_model.clear()
@@ -241,7 +176,15 @@ Window {
         y: 652
         width: 260
         height: 46
-        text: qsTr("update infromation")
+        Text {
+            anchors.fill: parent
+            text: "آپدیت تصاویر"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: "A Sogand"
+            font.pixelSize: 25
+        }
         z: 100
         onClicked: {
             center.get_path(path.text,labelnum.text)
@@ -263,7 +206,15 @@ Window {
         y: 592
         width: 260
         height: 46
-        text: qsTr("next")
+        Text {
+            anchors.fill: parent
+            text: "مجموعه بعدی"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: "A Sogand"
+            font.pixelSize: 19
+        }
         z: 100
         onClicked: {
             mymodel.clear()
@@ -277,9 +228,19 @@ Window {
         y: 592
         width: 260
         height: 46
-        text: qsTr("previous")
+        //
         antialiasing: true
         z: 100
+        Text {
+            anchors.fill: parent
+            text: "مجموعه قبلی"
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            font.family: "A Sogand"
+            font.pixelSize: 19
+        }
+
         onClicked: {
             center.prevous_bunch()
         }
@@ -288,9 +249,9 @@ Window {
     GridView {
         id: gridView1
         x: 1050
-        y: 331
+        y: 340
         width: 600
-        height: 245
+        height: 160
         cellWidth: 70
         model:alphabet_model
         delegate: Item {
@@ -335,6 +296,83 @@ Window {
     }
     ListModel {
         id: alphabet_model
+    }
+
+    ColumnLayout {
+        x: 1046
+        y: 704
+        height: 260
+        spacing: 18
+
+        Text {
+            width: 600
+            text: "مسیر تصاویر"
+            Layout.preferredHeight: 43
+            Layout.preferredWidth: 604
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: "B Morvarid"
+            font.pixelSize: 21
+        }
+
+        TextEdit {
+            id: path
+            text: "/home/nict/plate_finder_section/ocr/total_datasets/train/0"
+            Layout.preferredHeight: 20
+            Layout.preferredWidth: 600
+            horizontalAlignment: Text.AlignHCenter
+            font.family: "Times New Roman"
+            z: 100
+            font.pixelSize: 18
+        }
+
+        Label {
+            id: label1
+            width: 600
+            text: qsTr("شماره مشخص شده")
+            Layout.preferredHeight: 27
+            Layout.preferredWidth: 600
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.pointSize: 15
+            z: 100
+            font.family: "B Morvarid"
+        }
+
+        TextEdit {
+            id: labelnum
+            text: "1"
+            Layout.preferredHeight: 22
+            Layout.preferredWidth: 600
+            horizontalAlignment: Text.AlignHCenter
+            font.weight: Font.Light
+            font.capitalization: Font.AllUppercase
+            font.family: "Times New Roman"
+            z: 100
+            font.pixelSize: 20
+        }
+
+        TextEdit {
+            id: numofimgs1
+            text: qsTr("تصاویر پردازش شده:")
+            Layout.preferredHeight: 26
+            Layout.preferredWidth: 600
+            horizontalAlignment: Text.AlignHCenter
+            z: 100
+            font.pixelSize: 18
+            font.family: "B Morvarid"
+        }
+
+        TextEdit {
+            id: numofimgs
+            text: qsTr("تمام تصاویر در این رده:")
+            Layout.preferredHeight: 20
+            Layout.preferredWidth: 600
+            horizontalAlignment: Text.AlignHCenter
+            z: 100
+            font.family: "B Morvarid"
+            font.pixelSize: 18
+        }
     }
 
 }
