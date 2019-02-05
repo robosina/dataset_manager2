@@ -16,6 +16,7 @@ using namespace cv;
 #include <QDirIterator>
 #include <img_holder.h>
 #include <QDir>
+#include <QApplication>
 
 class ImageItem : public QQuickPaintedItem
 {
@@ -41,6 +42,9 @@ public:
     Q_INVOKABLE int set_source_number(int i);
     Q_INVOKABLE int get_total_image_passed();
     Q_INVOKABLE int get_total_img_size();
+    Q_INVOKABLE void update_information();
+    Q_INVOKABLE int get_count();int count{0};
+    Q_INVOKABLE QString get_name();QString name;
     QString src_path;int label_num;
     int iter_img{0},num_of_ids{0};
     vector<QString> image_list;
@@ -52,6 +56,7 @@ signals:
     void image_loaded();
     void whole_image_uploaded();
     void src_numberChanged();
+    void counting_end();
 private:
     QImage current_image;
     int current_number;
