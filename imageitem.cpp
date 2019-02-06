@@ -36,7 +36,7 @@ void ImageItem::load_next()
 {
     num_of_ids=0;
     id_vector.resize(0);
-    while(num_of_ids<1000 & iter_img<=image_list.size()-1)
+    while(num_of_ids<2000 & iter_img<=image_list.size()-1)
     {
         QString name=image_list[iter_img];
         id_vector.push_back(name);

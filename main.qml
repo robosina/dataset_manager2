@@ -6,6 +6,7 @@ import QtQuick.Extras 1.4
 import QtQuick.Controls.Styles.Desktop 1.0
 import QtQuick.Dialogs.qml 1.0
 import QtQuick.Layouts 1.0
+import QtCharts 2.3
 Window {
     visible: true
     width: 1700
@@ -13,19 +14,22 @@ Window {
     title: qsTr("Hello World")
     property real width_s: 55
     property real height_s: 55
+    property var anArray: [0,300513,124072,130443,112682,131888,135032,78314,111953,109180,8527,21980,4252,8681,6802,79,5425,3827,5244,9715,2718,1868,13849,832,25006,6460,159,2329,48046,26,33,3817,3977]
+    property var arrayO:[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+
     Rectangle{
         x: 20
-        y: 22
-        width: 997
-        height: 937
+        y: 316
+        width: 955
+        height: 643
         border.color: "#000000"
         radius: 25
         GridView {
             id: gridView
             x: 20
-            y: 100
-            width: 950
-            height: 700
+            y: 34
+            width: 919
+            height: 591
             model: mymodel
 
             delegate: Item {
@@ -102,14 +106,14 @@ Window {
 
         Slider {
             id: widthslider
-            x: 20
-            y: 899
-            width: 377
+            x: 986
+            y: 421
+            width: 590
             height: 22
             stepSize: 1
-            minimumValue: 20
+            minimumValue: 10
             value: 55
-            maximumValue: 140
+            maximumValue: 180
             onValueChanged: {
                 width_s=widthslider.value
                 height_s=widthslider.value
@@ -123,10 +127,10 @@ Window {
         radius: 25
         border.color: "#000000"
         antialiasing: true
-        width: 600
-        height: 266
-        x:1050
-        y:20
+        width: 541
+        height: 181
+        x:1057
+        y:528
         ImageItem {
             id:center
             anchors.fill: parent
@@ -144,6 +148,8 @@ Window {
             onCounting_end: {
                 var i
                 i=center.get_count()
+                anArray[alphabet_model.count]=i
+                console.log(anArray)
                 if(i===0)
                 {
                     alphabet_model.append({txt:center.get_name(),num:i,r_color:"#EE0000",t_color:"#FFFFFF",id_num:Number(alphabet_model.count)})
@@ -156,22 +162,11 @@ Window {
         }
     }
 
-    Label {
-        id: label
-        x: 1056
-        y: 716
-        width: 594
-        height: 27
-        z: 100
-        font.pointSize: 15
-        font.family: "Times New Roman"
-    }
-
     Button {
         id: loadimg
-        x: 1050
-        y: 652
-        width: 260
+        x: 1002
+        y: 828
+        width: 281
         height: 46
         Text {
             anchors.fill: parent
@@ -179,7 +174,7 @@ Window {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "A Sogand"
+            font.family: "EntezareZohoor C3"
             font.pixelSize: 19
         }
         z: 100
@@ -187,14 +182,35 @@ Window {
             alphabet_model.clear()
             center.get_path(path.text,labelnum.text)
             center.load_image()
+            arrayO=anArray
+            console.log("salam")
+            console.log(arrayO)
+            var min=10000
+            var max=-1000
+            for(var i=0;i<33;i++)
+            {
+                if(arrayO[i]<min)
+                {
+                    min=arrayO[i]
+                }
+                if(arrayO[i]>max)
+                {
+                    max=arrayO[i]
+                }
+            }
+
+            bar.axisY().min=min
+            bar.axisY().max=max
+//            bar.setAxisY()
+            bar.update()
         }
     }
 
     Button {
         id: update_information
-        x: 1390
-        y: 652
-        width: 260
+        x: 1362
+        y: 828
+        width: 278
         height: 46
         Text {
             anchors.fill: parent
@@ -202,8 +218,8 @@ Window {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "A Sogand"
-            font.pixelSize: 25
+            font.family: "EntezareZohoor C3"
+            font.pixelSize: 19
         }
         z: 100
         onClicked: {
@@ -212,19 +228,11 @@ Window {
         }
     }
 
-    Row {
-        x: 1038
-        y: 592
-        width: 612
-        height: 46
-        spacing: 12
-    }
-
     Button {
         id: next
-        x: 1390
-        y: 592
-        width: 260
+        x: 1362
+        y: 765
+        width: 278
         height: 46
         Text {
             anchors.fill: parent
@@ -232,7 +240,7 @@ Window {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "A Sogand"
+            font.family: "EntezareZohoor C3"
             font.pixelSize: 19
         }
         z: 100
@@ -244,9 +252,9 @@ Window {
 
     Button {
         id: prevois
-        x: 1050
-        y: 592
-        width: 260
+        x: 1006
+        y: 765
+        width: 277
         height: 46
         //
         antialiasing: true
@@ -257,7 +265,7 @@ Window {
             verticalAlignment: Text.AlignVCenter
             horizontalAlignment: Text.AlignHCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            font.family: "A Sogand"
+            font.family: "EntezareZohoor C3"
             font.pixelSize: 19
         }
 
@@ -268,10 +276,10 @@ Window {
 
     GridView {
         id: gridView1
-        x: 1050
-        y: 340
-        width: 600
-        height: 160
+        x: 1006
+        y: 316
+        width: 671
+        height: 131
         cellWidth: 70
         model:alphabet_model
         delegate: Item {
@@ -318,93 +326,130 @@ Window {
         id: alphabet_model
     }
 
-    ColumnLayout {
-        x: 1046
-        y: 704
-        height: 260
-        spacing: 18
-
-        Text {
-            width: 600
-            text: "مسیر تصاویر"
-            Layout.preferredHeight: 43
-            Layout.preferredWidth: 604
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.family: "B Morvarid"
-            font.pixelSize: 21
-        }
-
-        TextEdit {
-            id: path
-            text: "/home/nict/plate_finder_section/ocr/total_datasets/train/0"
-            Layout.preferredHeight: 20
-            Layout.preferredWidth: 600
-            horizontalAlignment: Text.AlignHCenter
-            font.family: "Times New Roman"
-            z: 100
-            font.pixelSize: 18
-        }
-
-        Label {
-            id: label1
-            width: 600
-            text: qsTr("شماره مشخص شده")
-            Layout.preferredHeight: 27
-            Layout.preferredWidth: 600
-            verticalAlignment: Text.AlignVCenter
-            horizontalAlignment: Text.AlignHCenter
-            font.pointSize: 15
-            z: 100
-            font.family: "B Morvarid"
-        }
-
-        TextEdit {
-            id: labelnum
-            text: "1"
-            Layout.preferredHeight: 22
-            Layout.preferredWidth: 600
-            horizontalAlignment: Text.AlignHCenter
-            font.weight: Font.Light
-            font.capitalization: Font.AllUppercase
-            font.family: "Times New Roman"
-            z: 100
-            font.pixelSize: 20
-        }
-
-        TextEdit {
-            id: numofimgs1
-            text: qsTr("تصاویر پردازش شده:")
-            Layout.preferredHeight: 26
-            Layout.preferredWidth: 600
-            horizontalAlignment: Text.AlignHCenter
-            z: 100
-            font.pixelSize: 18
-            font.family: "B Morvarid"
-        }
-
-        TextEdit {
-            id: numofimgs
-            text: qsTr("تمام تصاویر در این رده:")
-            Layout.preferredHeight: 20
-            Layout.preferredWidth: 600
-            horizontalAlignment: Text.AlignHCenter
-            z: 100
-            font.family: "B Morvarid"
-            font.pixelSize: 18
-        }
-    }
-
     Text {
         id: image_path
-        x: 1050
-        y: 301
-        width: 600
+        x: 1006
+        y: 715
+        width: 629
         height: 22
         text: qsTr("image path")
+        renderType: Text.NativeRendering
         verticalAlignment: Text.AlignVCenter
         horizontalAlignment: Text.AlignHCenter
         font.pixelSize: 15
+    }
+
+    Text {
+        x: 1006
+        y: 885
+        width: 171
+        height: 31
+        text: "مسیر تصاویر"
+        Layout.preferredHeight: 43
+        Layout.preferredWidth: 604
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.family: "EntezareZohoor C3"
+        font.pixelSize: 21
+    }
+
+    TextEdit {
+        id: path
+        x: 1122
+        y: 890
+        width: 513
+        height: 20
+        text: "/home/nict/plate_finder_section/ocr/total_datasets/train/0"
+        Layout.preferredHeight: 20
+        Layout.preferredWidth: 600
+        horizontalAlignment: Text.AlignHCenter
+        font.family: "Times New Roman"
+        z: 100
+        font.pixelSize: 18
+    }
+
+    Label {
+        id: label1
+        x: 1002
+        y: 933
+        width: 159
+        height: 26
+        text: qsTr("شماره مشخص شده")
+        Layout.preferredHeight: 27
+        Layout.preferredWidth: 600
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pointSize: 15
+        z: 100
+        font.family: "EntezareZohoor C3"
+    }
+
+    TextEdit {
+        id: labelnum
+        x: 1142
+        y: 935
+        width: 85
+        height: 22
+        text: "1"
+        Layout.preferredHeight: 22
+        Layout.preferredWidth: 600
+        horizontalAlignment: Text.AlignHCenter
+        font.weight: Font.Light
+        font.capitalization: Font.AllUppercase
+        font.family: "Times New Roman"
+        z: 100
+        font.pixelSize: 20
+    }
+
+    TextEdit {
+        id: numofimgs1
+        x: 1207
+        y: 936
+        width: 259
+        height: 26
+        text: qsTr("تصاویر پردازش شده:")
+        Layout.preferredHeight: 26
+        Layout.preferredWidth: 600
+        horizontalAlignment: Text.AlignHCenter
+        z: 100
+        font.pixelSize: 18
+        font.family: "B Morvarid"
+    }
+
+    TextEdit {
+        id: numofimgs
+        x: 1435
+        y: 934
+        width: 200
+        height: 23
+        text: qsTr("تمام تصاویر در این رده:")
+        Layout.preferredHeight: 20
+        Layout.preferredWidth: 600
+        horizontalAlignment: Text.AlignHCenter
+        z: 100
+        font.family: "B Morvarid"
+        font.pixelSize: 18
+
+    }
+
+    ChartView {
+
+        id: bar
+        x: 20
+        y: 8
+        width: 1601
+        height: 279
+        plotAreaColor: "#fdfefd"
+        dropShadowEnabled: true
+        BarSeries {
+            name: "تعداد حروف"
+            BarSet {
+                values: arrayO
+                label: "دیتاست پلاک"
+
+            }
+        }
+
     }
 
 }

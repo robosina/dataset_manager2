@@ -1,5 +1,5 @@
-QT += quick widgets
-CONFIG += c++11
+QT += widgets gui quick
+CONFIG += c++14
 
 # The following define makes your compiler emit warnings if you use
 # any Qt feature that has been marked deprecated (the exact warnings
@@ -35,4 +35,6 @@ HEADERS += \
     img_holder.h
 INCLUDEPATH += /usr/local/include/opencv4
 LIBS += -L/usr/local/lib -lopencv_stitching -lopencv_superres -lopencv_videostab -lopencv_tracking -lopencv_img_hash -lopencv_bgsegm -lopencv_cudabgsegm -lopencv_hfs -lopencv_cudastereo -lopencv_reg -lopencv_rgbd -lopencv_face -lopencv_photo -lopencv_stereo -lopencv_plot -lopencv_cudacodec -lopencv_line_descriptor -lopencv_cudaoptflow -lopencv_dpm -lopencv_saliency -lopencv_freetype -lopencv_ccalib -lopencv_aruco -lopencv_bioinspired -lopencv_datasets -lopencv_text -lopencv_cudafeatures2d -lopencv_cudaobjdetect -lopencv_cudalegacy -lopencv_cudaimgproc -lopencv_cudafilters -lopencv_cudawarping -lopencv_surface_matching -lopencv_optflow -lopencv_ximgproc -lopencv_video -lopencv_dnn_objdetect -lopencv_dnn -lopencv_xphoto -lopencv_xobjdetect -lopencv_objdetect -lopencv_xfeatures2d -lopencv_shape -lopencv_ml -lopencv_cudaarithm -lopencv_fuzzy -lopencv_structured_light -lopencv_calib3d -lopencv_features2d -lopencv_highgui -lopencv_videoio -lopencv_imgcodecs -lopencv_phase_unwrapping -lopencv_imgproc -lopencv_flann -lopencv_core -lopencv_cudev
+
+DISTFILES +=
 
