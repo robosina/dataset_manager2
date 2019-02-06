@@ -45,10 +45,12 @@ public:
     Q_INVOKABLE void update_information();
     Q_INVOKABLE int get_count();int count{0};
     Q_INVOKABLE QString get_name();QString name;
+    Q_INVOKABLE QString get_image_name(int i);
+    Q_INVOKABLE void set_plate_image(QString str);
     QString src_path;int label_num;
     int iter_img{0},num_of_ids{0};
     vector<QString> image_list;
-    vector<img_holder> id_vector;
+    vector<QString> id_vector;
     QString get_text_name(QString& input);
 
 signals:

@@ -11,6 +11,8 @@ Window {
     width: 1700
     height: 1000
     title: qsTr("Hello World")
+    property real width_s: 55
+    property real height_s: 55
     Rectangle{
         x: 20
         y: 22
@@ -39,15 +41,15 @@ Window {
                         color: "#EEFFEE"
                         antialiasing: true
                         opacity: 1
-                        width: 70
-                        height: 70
+                        width: width_s
+                        height: height_s
                         x:1
                         y:1
 
                         ImageItem {
                             id:im
-                            width: 60
-                            height: 60
+                            width: width_s-5
+                            height: height_s-5
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
                             src_number: src_n
@@ -58,6 +60,11 @@ Window {
                                 console.log(obj_id)
                                 rect.state = "pressed"
                                 stateTimer2.start()
+                                parent.color="#ff0000"
+                                parent.radius=20
+                                var str=center.get_image_name(obj_id)
+                                center.set_plate_image(str)
+                                image_path.text=str
                             }
                         }
 
@@ -89,8 +96,24 @@ Window {
                     }
                 }
             }
-            cellHeight: 85
-            cellWidth: 80
+            cellHeight: height_s+15
+            cellWidth: width_s+5
+        }
+
+        Slider {
+            id: widthslider
+            x: 20
+            y: 899
+            width: 377
+            height: 22
+            stepSize: 1
+            minimumValue: 20
+            value: 55
+            maximumValue: 140
+            onValueChanged: {
+                width_s=widthslider.value
+                height_s=widthslider.value
+            }
         }
     }
     ListModel {
@@ -101,15 +124,12 @@ Window {
         border.color: "#000000"
         antialiasing: true
         width: 600
-        height: 300
+        height: 266
         x:1050
         y:20
         ImageItem {
             id:center
-            width: 600
-            height: 300
-            x:1050
-            y:20
+            anchors.fill: parent
             onImage_loaded: {
                 numofimgs.text="تمام تصاویر در این رده:"+Number(center.return_number_of_imgs())
             }
@@ -271,7 +291,7 @@ Window {
                     anchors.horizontalCenter: parent.horizontalCenter
                     border.color: "#000000"
                     color: r_color
-                    radius: 5
+                    radius: 15
                     Text {
                         text: txt
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -373,6 +393,18 @@ Window {
             font.family: "B Morvarid"
             font.pixelSize: 18
         }
+    }
+
+    Text {
+        id: image_path
+        x: 1050
+        y: 301
+        width: 600
+        height: 22
+        text: qsTr("image path")
+        verticalAlignment: Text.AlignVCenter
+        horizontalAlignment: Text.AlignHCenter
+        font.pixelSize: 15
     }
 
 }

@@ -35,10 +35,11 @@ int ImageItem::src_number() const
 void ImageItem::load_next()
 {
     num_of_ids=0;
-
-    while(num_of_ids<600 & iter_img<=image_list.size()-1)
+    id_vector.resize(0);
+    while(num_of_ids<1000 & iter_img<=image_list.size()-1)
     {
         QString name=image_list[iter_img];
+        id_vector.push_back(name);
         QStringList ll=name.split(",");
         QString image_name=ll[0];
         Rect r(ll[1].toInt(),ll[2].toInt(),ll[3].toInt(),ll[4].toInt());
@@ -233,18 +234,18 @@ int ImageItem::return_number_of_imgs()
 
 int ImageItem::set_a_new_img(int i)
 {
-    Mat img=id_vector[i].img;
-    //    imwrite("/home/nict/plate_finder_section/programs/find_wrong_labels/CQyhf.png",img);
-    QImage imagen((uchar*)img.data,img.cols,img.rows,QImage::Format_RGB888);
-    setImage(imagen);
+//    Mat img=id_vector[i].img;
+//    //    imwrite("/home/nict/plate_finder_section/programs/find_wrong_labels/CQyhf.png",img);
+//    QImage imagen((uchar*)img.data,img.cols,img.rows,QImage::Format_RGB888);
+//    setImage(imagen);
 }
 
 int ImageItem::set_source_number(int i)
 {
-    Mat img=id_vector[i].img;
-    //    imwrite("/home/nict/plate_finder_section/programs/find_wrong_labels/CQyhf.png",img);
-    QImage imagen((uchar*)img.data,img.cols,img.rows,QImage::Format_RGB888);
-    setImage(imagen);
+//    Mat img=id_vector[i].img;
+//    //    imwrite("/home/nict/plate_finder_section/programs/find_wrong_labels/CQyhf.png",img);
+//    QImage imagen((uchar*)img.data,img.cols,img.rows,QImage::Format_RGB888);
+//    setImage(imagen);
 }
 
 int ImageItem::get_total_image_passed()
@@ -331,6 +332,23 @@ QString ImageItem::get_name()
     return name;
 }
 
+QString ImageItem::get_image_name(int i)
+{
+    return id_vector[i];
+}
+
+void ImageItem::set_plate_image(QString str)
+{
+    QStringList l=str.split(",");
+    Mat img=imread(l[0].toStdString());
+    Rect r(l[1].toInt(),l[2].toInt(),l[3].toInt(),l[4].toInt());
+    cvtColor(img,img,cv::COLOR_BGR2RGB);
+    rectangle(img,r,Scalar(0,255,0),2,1);
+    QImage image2((uchar*)img.data,img.cols,img.rows,QImage::Format_RGB888);
+    this->current_image =image2.copy();
+    update();
+}
+
 QString ImageItem::get_text_name(QString &input)
 {
     QStringList l=input.split(".");
@@ -347,14 +365,4 @@ void ImageItem::setImage(QImage &image)
 void ImageItem::setSrc_number(int &src)
 {
     this->current_image = QImage("label/"+QString::number(src)+".jpg");
-    //    Mat img=imread("label/"+to_string(src)+".jpg");
-    //    cvtColor(img,img,cv::COLOR_BGR2GRAY);
-    ////    imshow("img",img);
-    ////    waitKey(0);
-    //    cv::resize(img,img,Size(200,200));
-    //    QImage imagen((uchar*)img.data,img.cols,img.rows,QImage::Format_Grayscale8);
-    //        setImage(imagen);
-    //    this->current_number=src;
-
-    //    cout<<"loading:"<<"label/"+to_string(src)+".jpg"<<endl;
 }
